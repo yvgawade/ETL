@@ -3,7 +3,6 @@ package com.spring.ETL.entity;
 public class CommonPOJO<T> {
   String name;
 
-
   public String getName() {
     return name;
   }

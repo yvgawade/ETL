@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
 public class POJOFactory {
-  public final static Properties POJOFACTORY = ProfileConfiguration.getFactoryProperties();
+  public final static Properties POJOFACTORY = ProfileConfiguration.getProperties();
 
 
   public static ProcessData getProcessor(String type, CommonPOJO<?> pojo) {

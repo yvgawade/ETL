@@ -1,6 +1,7 @@
 package com.spring.ETL.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.ETL.EtlApplication;
 import com.spring.ETL.callable.ProcessData;
 import com.spring.ETL.common.POJOFactory;
 import com.spring.ETL.entity.IngestDataPOJO;
@@ -11,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +24,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class IngestDataController {
   private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+  public static void main(String[] args) {
+    IngestDataController ingestDataController = new IngestDataController();
+    ingestDataController.process("{\"name\" : \"yogesh\"}");
+  }
   @RequestMapping(method = RequestMethod.POST)
   public String process(@RequestBody String queryChainPOJOString) {
 
-    final IngestDataPOJO ingestDataPOJO = convertToJavaObject(queryChainPOJOString);
+    //final IngestDataPOJO ingestDataPOJO = convertToJavaObject(queryChainPOJOString);
+    IngestDataPOJO ingestDataPOJO = new IngestDataPOJO();
+    ingestDataPOJO.setDatabaseUrl("jdbc:mysql://localhost:3306/tpch");
+    ingestDataPOJO.setUsername("root");
+    ingestDataPOJO.setPassword("root");
+    ingestDataPOJO.setTableName("orders");
+    ingestDataPOJO.setColumns("");
+    ingestDataPOJO.setFilter("o_totalprice < '999'");
+    ingestDataPOJO.setDriverClass("com.mysql.cj.jdbc.Driver");
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     executor.execute(new Runnable() {
       @Override
