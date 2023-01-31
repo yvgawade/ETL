@@ -38,7 +38,7 @@ public class IngestDataController {
     ingestDataPOJO.setPassword("root");
     ingestDataPOJO.setTableName("orders");
     ingestDataPOJO.setColumns("");
-    ingestDataPOJO.setFilter("o_totalprice < '999'");
+    ingestDataPOJO.setFilter("\"o_totalprice\" < '999'");
     ingestDataPOJO.setDriverClass("com.mysql.cj.jdbc.Driver");
     final ExecutorService executor = Executors.newSingleThreadExecutor();
     executor.execute(new Runnable() {
